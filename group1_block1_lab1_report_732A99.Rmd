@@ -1,10 +1,6 @@
 ---
 title: "Group 1 - Block 1 - lab 1 - Group Report - 732A99 - Machine Learning"
-author: |
-| **GROUP 01**
-  | Bayu Brahmantio - baybr878 - baybr878@student.liu.se
-  | Joris van Doorn - jorva845 - jorva845@student.liu.se
-  | Jose Jaime Mendez Flores - josme478 - josme478@student.liu.se
+author: "| **GROUP 01** | Bayu Brahmantio - baybr878 - baybr878@student.liu.se | Joris van Doorn - jorva845 - jorva845@student.liu.se | Jose Jaime Mendez Flores - josme478 - josme478@student.liu.se"
   date: "`r format(Sys.time(), '%d %B %Y')`"
 output: word_document
 ---
@@ -265,50 +261,50 @@ make_plot()
 
 According to the plot, if we look at MSE values on training set, $M_6$ is the best model. However, if we look at the validation MSE, $M_1$ has the smallest errors. This can be explained by bias-variance trade-off. Models with higher degree of polynomial have lower bias but higher variance, so the model would overfit the training data and resulting in higher prediction errror when presented with validation data. If the models have lower degree of polynomial, it would underfit the data and have higher training MSE. However, due to the lower variance, they generalize better than more complex models hence the lower validation MSE.   
 
-**Variable selection of a linear model in which Fat is response and Channel1-Channel100 are predictors by using stepAIC:**   
+*Variable selection of a linear model in which Fat is response and Channel1-Channel100 are predictors by using stepAIC:*  
 ```{r, echo = FALSE, warning = FALSE}
-# df_new = df[,c(-1, -103, -104)]
-# lm2 = lm(Fat~., data = df_new)
-# lm3 = stepAIC(lm2, trace = FALSE)
-# cat("Number of variables selected: ", length(names(lm3$model))-1)
+df_new = df[,c(-1, -103, -104)]
+lm2 = lm(Fat~., data = df_new)
+lm3 = stepAIC(lm2, trace = FALSE)
+cat("Number of variables selected: ", length(names(lm3$model))-1)
 ```
 There are 63 variables selected out of 100 variables.   
 
-**Ridge regression:**   
+*Ridge regression:*   
 ```{r, echo = FALSE, warning = FALSE}
-# covariates = scale(lm3$model[,-1])
-# response = scale(lm3$model[,1])
-# ridge_model = glmnet(x = as.matrix(covariates), 
-#                 y = response, alpha = 0,
-#                 family = "gaussian")
-# plot(ridge_model, xvar="lambda", label=TRUE)
+covariates = scale(lm3$model[,-1])
+response = scale(lm3$model[,1])
+ridge_model = glmnet(x = as.matrix(covariates), 
+               y = response, alpha = 0,
+               family = "gaussian")
+plot(ridge_model, xvar="lambda", label=TRUE)
 ```
 
-**LASSO:**   
+*LASSO:*   
 ```{r, echo = FALSE, warning = FALSE}
-# lasso_model = glmnet(x = as.matrix(covariates), 
-#                      y = response, alpha = 1,
-#                      family = "gaussian")
-# plot(lasso_model, xvar="lambda", label=TRUE)
+lasso_model = glmnet(x = as.matrix(covariates), 
+                    y = response, alpha = 1,
+                    family = "gaussian")
+plot(lasso_model, xvar="lambda", label=TRUE)
 ```
 
 Based on two plots above, we can see that the ridge regression still use all of 63 variables as the value of $\lambda$ increased, although the value of the coefficients got smaller but not reaching 0. In the LASSO model, some coefficients reached to 0 even when $\lambda$ is still not relatively big. When $\ln{\lambda} = -6$ or $\lambda \approx 0.002$, there were 10 variables left that have nonzero coefficient. In conclusion, LASSO models use only several variables as the value of $\lambda$ grows while ridge regression models use all variables.   
 
-**Cross-validation to find the optimal LASSO model:**   
+*Cross-validation to find the optimal LASSO model:*  
 ```{r, echo = FALSE, warning = FALSE}
-# lambdas = c(0, exp(seq(-6, 1, by = 0.1)))
-# lasso_model = glmnet(x = as.matrix(covariates), 
-#                      y = response, alpha = 1,
-#                      family = "gaussian",
-#                      lambda = lambdas)
-# plot(lasso_model, xvar="lambda", label=TRUE)
-# 
-# cv_fit = cv.glmnet(x = as.matrix(covariates), 
-#                    y = response, 
-#                    alpha = 1, 
-#                    lambda = lambdas)
-# cv_fit
-# plot(cv_fit$lambda, cv_fit$cvm, xlab = "lambda", ylab = "MSE")
+lambdas = c(0, exp(seq(-6, 1, by = 0.1)))
+lasso_model = glmnet(x = as.matrix(covariates), 
+                    y = response, alpha = 1,
+                    family = "gaussian",
+                    lambda = lambdas)
+plot(lasso_model, xvar="lambda", label=TRUE)
+
+cv_fit = cv.glmnet(x = as.matrix(covariates), 
+                  y = response, 
+                  alpha = 1, 
+                  lambda = lambdas)
+cv_fit
+plot(cv_fit$lambda, cv_fit$cvm, xlab = "lambda", ylab = "MSE")
 ```
 
 The value of  $\lambda$ chosen is $\lambda = 0$ which is the same as using all 63 variables. In conclusion, the best model for predicting `Fat` is by using 63 variables that were selected by `stepAIC`. As seen on the plot, the value of MSE increased as the value of $\lambda$ increased too.   
@@ -363,6 +359,8 @@ table(predicted_class, test$Spam)
 print((185 / (185 + 644))*100)
 print((307 / (307 + 234))*100)
 ```
+
+
 
 ```{r echo = TRUE}
 #ASSIGNMENT 3
