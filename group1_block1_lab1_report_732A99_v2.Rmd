@@ -1,6 +1,11 @@
 ---
+<<<<<<< HEAD:group1_block1_lab1_report_732A99_v2.Rmd
 title: "Group1 - Block 1 - Lab 1 - Report - 732A99"
 author: "Bayu Brahmantio - baybr878 | Joris van Doorn - jorva845 | Jose Jaime Mendez Flores - josme478"
+=======
+title: "Group 1 - Block 1 - lab 1 - Group Report - 732A99 - Machine Learning"
+author: "| **GROUP 01** | Bayu Brahmantio - baybr878 - baybr878@student.liu.se | Joris van Doorn - jorva845 - jorva845@student.liu.se | Jose Jaime Mendez Flores - josme478 - josme478@student.liu.se"
+>>>>>>> 0d5a34213e76b5944656af9c5579b665514c5d15:group1_block1_lab1_report_732A99.Rmd
   date: "`r format(Sys.time(), '%d %B %Y')`"
 output: word_document
 ---
@@ -359,6 +364,8 @@ table(predicted_class, test$Spam)
 print((185 / (185 + 644))*100)
 print((307 / (307 + 234))*100)
 ```
+
+
 
 ```{r echo = TRUE}
 #ASSIGNMENT 3
